@@ -16,7 +16,7 @@ namespace UAFlights
     public static class DBExample
     {
         [FunctionName("DBExample")]
-        public static async Task Run([TimerTrigger("*/15 * * * * *")]TimerInfo myTimer, ILogger log)
+        public static async Task Run([TimerTrigger("*/315 * * * * *")]TimerInfo myTimer, ILogger log)
         {
             // Get the connection string from app settings and use it to create a connection.
             var str = Environment.GetEnvironmentVariable("sqldb_connection");
