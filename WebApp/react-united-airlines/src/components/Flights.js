@@ -3,14 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
 import Accordion from 'react-bootstrap/Accordion'
+import { useEffect } from 'react';
+
+import axios from 'axios';
 //variable imports
 
 
 
-
-
 function Flights() {
-
+    axios.post(`https://uaflights.azurewebsites.net/api/FlightsPerMonth?name=maria&code=1PYCOLZoJHvy8UHqgKKOecJ50fzJBaWUMtuNgrZixbZ6KYs5nTy7aQ==`)
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+        })
     return (
         <div >
             <Jumbotron fluid id="weather-header" className="BgStyle" >
