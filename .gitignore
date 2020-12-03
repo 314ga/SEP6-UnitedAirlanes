@@ -1,0 +1,17 @@
+# Created by https://www.toptal.com/developers/gitignore/api/react
+# Edit at https://www.toptal.com/developers/gitignore?templates=react
+
+### react ###
+WebApp/.DS_*
+WebApp/*.log
+WebApp/logs
+WebApp/**/*.backup.*
+WebApp/**/*.back.*
+WebApp/node_modules
+WebApp/bower_components
+WebApp/*.sublime*
+WebApp/psd
+WebApp/thumb
+WebApp/sketch
+
+# End of https://www.toptal.com/developers/gitignore/api/react
