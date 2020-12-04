@@ -21,42 +21,113 @@ namespace WeatherFunctionApp
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string userRequest = req.Query["name"];
-
+            string userRequest = req.Query["requestBody"];
+            string responseMessage = "";
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            userRequest = userRequest ?? data?.name;
+            userRequest = userRequest ?? data?.requestBody;
 
-            string responseMessage = string.IsNullOrEmpty(userRequest)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {userRequest}. This is weather";
-            // Get the connection string from app settings and use it to create a connection.
-            var str = Environment.GetEnvironmentVariable("sqldb_connection");
-            using (SqlConnection conn = new SqlConnection(str))
+            if(!string.IsNullOrEmpty(userRequest))
             {
-                conn.Open();
-                var text = "SELECT TOP (5) [carrier] ,[name] FROM[dbo].[airlines]";
-
-                using (SqlCommand cmd = new SqlCommand(text, conn))
+                var str = Environment.GetEnvironmentVariable("sqldb_connection");
+                using (SqlConnection conn = new SqlConnection(str))
                 {
-                    SqlDataReader reader = await cmd.ExecuteReaderAsync();
-                    // Execute the command and log the # rows affected.
-                    while (reader.Read())
+                    var text = "";
+                    conn.Open();
+                    switch(userRequest)
                     {
-                        ReadSingleRow((IDataRecord)reader, log);
+                        case "wo-origins":
+                        {
+                            text =  "SELECT COUNT(*) AS weather_obs_origin " +
+                                    "FROM dbo.weather WHERE origin = 'JFK' "+
+                                    "UNION ALL "+
+                                    "SELECT COUNT(*) AS weather_obs_origin2 "+
+                                    "FROM dbo.weather WHERE origin = 'EWR' "+
+                                    "UNION ALL "+
+                                    "SELECT COUNT(*) AS weather_obs_origin3 "+
+                                    "FROM dbo.weather WHERE origin = 'LGA' FOR JSON PATH;";
+                            break;
+                        }
+                        case "temp-attributes":
+                        {
+                            text = "SELECT origin,CAST(temp AS float) AS temp FROM dbo.weather "+
+                                    "WHERE origin = 'JFK' AND ISNUMERIC(temp) = 1 UNION ALL "+
+                                   "SELECT origin, CAST(temp AS float) AS temp FROM dbo.weather "+
+                                   "WHERE origin = 'EWR'AND ISNUMERIC(temp) = 1 UNION ALL "+
+                                   "SELECT origin, CAST(temp AS float) AS temp FROM dbo.weather " +
+                                   "WHERE origin = 'LGA' AND ISNUMERIC(temp) = 1 FOR JSON PATH;";
+                            break;
+                        }
+                        case "temp-jfk":
+                        {
+                            text = "SELECT origin,CAST(temp AS float) AS temp " +
+                                    "FROM dbo.weather WHERE origin = 'JFK' AND ISNUMERIC(temp) = 1 FOR JSON PATH;";
+                            break;
+                        }
+                        case "avgtemp-jfk":
+                        {
+                                text = "SELECT origin,datepart(day,time_hour) AS div_day,datepart(month,time_hour) " +
+                                "AS div_month,datepart(year,time_hour) AS div_year, AVG(CAST(temp AS float)) AS temp  FROM dbo.weather " +
+                                "WHERE ISNUMERIC(temp) = 1 AND temp IS NOT NULL AND origin = 'JFK' " +
+                                "GROUP BY datepart(day, time_hour),datepart(month, time_hour),datepart(year, time_hour), " +
+                                "origin ORDER BY origin,div_year,div_month,div_day ASC FOR JSON PATH;";
+                            break;
+                        }
+                        case "avgtemp-origin":
+                        {
+                            text = "SELECT origin,datepart(day,time_hour) AS div_day,datepart(month,time_hour) " +
+                                "AS div_month,datepart(year,time_hour) AS div_year, AVG(CAST(temp AS float)) AS temp  FROM dbo.weather " +
+                                "WHERE ISNUMERIC(temp) = 1 AND temp IS NOT NULL AND origin = 'JFK' " +
+                                "GROUP BY datepart(day, time_hour),datepart(month, time_hour),datepart(year, time_hour), origin " +
+                                "UNION ALL SELECT origin,datepart(day, time_hour) AS div_day, datepart(month, time_hour) AS div_month, " +
+                                "datepart(year, time_hour) AS div_year, AVG(CAST(temp AS float)) AS temp  FROM dbo.weather " +
+                                "WHERE ISNUMERIC(temp) = 1 AND temp IS NOT NULL AND origin = 'EWR' " +
+                                "GROUP BY datepart(day, time_hour),datepart(month, time_hour),datepart(year, time_hour), origin UNION ALL " +
+                                "SELECT origin,datepart(day, time_hour) AS div_day, datepart(month, time_hour) AS div_month, " +
+                                "datepart(year, time_hour) AS div_year, AVG(CAST(temp AS float)) AS temp  FROM dbo.weather " +
+                                "WHERE ISNUMERIC(temp) = 1 AND temp IS NOT NULL AND origin = 'LGA' " +
+                                "GROUP BY datepart(day, time_hour),datepart(month, time_hour),datepart(year, time_hour), origin " +
+                                "ORDER BY origin, div_year, div_month, div_day ASC FOR JSON PATH; ";
+                            break;
+                        }
+                        default:
+                        {
+                            text = "error";
+                            break;
+                        }
+                        
                     }
+                    if(text != "error" || text == "")
+                    {
+                        using (SqlCommand cmd = new SqlCommand(text, conn))
+                        {
+                            SqlDataReader reader = await cmd.ExecuteReaderAsync();
+                            // Execute the command and log the # rows affected.
+                            while (reader.Read())
+                            {
+                                IDataRecord result = (IDataRecord)reader;
+                                responseMessage += String.Format("{0},", result[0]);
+                            }
+                            // Call Close when done reading.
+                            reader.Close();
 
-                    // Call Close when done reading.
-                    reader.Close();
-                    /* var rows = await cmd.ExecuteNonQueryAsync();
-                     log.LogInformation($"{rows} rows were updated");*/
+                        }
+                    }
+                    else 
+                    {
+                        return new NotFoundObjectResult(userRequest);
+                    }
+                    
                 }
+                return new OkObjectResult(responseMessage);
             }
-            return new OkObjectResult(responseMessage);
-        }
-        private static void ReadSingleRow(IDataRecord record, ILogger log)
-        {
-            log.LogInformation(String.Format("{0}, {1}", record[0], record[1]));
+            else
+            {
+                return new NotFoundObjectResult(userRequest);
+            }
+            // Get the connection string from app settings and use it to create a connection.
+           
+            
         }
     }
 }
