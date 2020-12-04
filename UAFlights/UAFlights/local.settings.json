@@ -1,8 +1,0 @@
-{
-  "IsEncrypted": false,
-  "Values": {
-    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "sqldb_connection": "Server=tcp:sep6ua.database.windows.net,1433;Initial Catalog=SEP6-UnitedAirline;Persist Security Info=False;User ID=marpi;Password=$ep6UAVIA;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-  }
-}
