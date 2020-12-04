@@ -10,21 +10,11 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--output $(Build.BinariesDirectory)/publish_output --configuration Release'
 
-- task: ArchiveFiles@2
+- task: AzureFunctionApp@1
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)/publish_output'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    azureSubscription: 'Azure for Students (20cb0441-74fa-4966-b9c8-62521384091a)'
+    appType: 'functionApp'
+    appName: 'Sep6UA-Weather'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
