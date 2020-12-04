@@ -68,3 +68,4 @@ C:\Users\314ga\Desktop\SEP6\SEP6-UnitedAirlanes\FlightFunctionApp\obj\Debug\netc
 C:\Users\314ga\Desktop\SEP6\SEP6-UnitedAirlanes\FlightFunctionApp\obj\Debug\netcoreapp3.1\FlightFunctionApp.csproj.CopyComplete
 C:\Users\314ga\Desktop\SEP6\SEP6-UnitedAirlanes\FlightFunctionApp\obj\Debug\netcoreapp3.1\FlightFunctionApp.dll
 C:\Users\314ga\Desktop\SEP6\SEP6-UnitedAirlanes\FlightFunctionApp\obj\Debug\netcoreapp3.1\FlightFunctionApp.pdb
+C:\Users\314ga\Desktop\SEP6\SEP6-UnitedAirlanes\FlightFunctionApp\bin\Debug\netcoreapp3.1\Microsoft.Azure.WebJobs.Extensions.Storage.dll

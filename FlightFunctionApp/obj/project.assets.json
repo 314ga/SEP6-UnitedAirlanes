@@ -350,6 +350,19 @@
           "lib/netstandard2.0/Microsoft.Azure.WebJobs.Extensions.Http.dll": {}
         }
       },
+      "Microsoft.Azure.WebJobs.Extensions.Storage/3.0.10": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Azure.WebJobs": "3.0.14",
+          "WindowsAzure.Storage": "9.3.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Azure.WebJobs.Extensions.Storage.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Azure.WebJobs.Extensions.Storage.dll": {}
+        }
+      },
       "Microsoft.Azure.WebJobs.Host.Storage/3.0.14": {
         "type": "package",
         "dependencies": {
@@ -2457,6 +2470,18 @@
         "lib/netstandard2.0/Microsoft.Azure.WebJobs.Extensions.Http.dll",
         "microsoft.azure.webjobs.extensions.http.3.0.2.nupkg.sha512",
         "microsoft.azure.webjobs.extensions.http.nuspec"
+      ]
+    },
+    "Microsoft.Azure.WebJobs.Extensions.Storage/3.0.10": {
+      "sha512": "YVGXiXxF392B/8p9ZvnufajmAjVVhrxQ4PLlbL/eBY5R5dHd/8cI8k9FW1K40qlj21Lmx+DO2vM9L+pcl9M+fg==",
+      "type": "package",
+      "path": "microsoft.azure.webjobs.extensions.storage/3.0.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Azure.WebJobs.Extensions.Storage.dll",
+        "microsoft.azure.webjobs.extensions.storage.3.0.10.nupkg.sha512",
+        "microsoft.azure.webjobs.extensions.storage.nuspec"
       ]
     },
     "Microsoft.Azure.WebJobs.Host.Storage/3.0.14": {
@@ -6883,6 +6908,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Microsoft.Azure.WebJobs.Extensions.Storage >= 3.0.10",
       "Microsoft.NET.Sdk.Functions >= 3.0.11",
       "System.Data.SqlClient >= 4.8.2"
     ]
@@ -6894,9 +6920,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\314ga\\Desktop\\SEP6\\SEP6-UnitedAirlanes\\FlightFunctionApp\\FlightFunctionApp.csproj",
-      "projectName": "FlightFunctionApp",
-      "projectPath": "C:\\Users\\314ga\\Desktop\\SEP6\\SEP6-UnitedAirlanes\\FlightFunctionApp\\FlightFunctionApp.csproj",
+      "projectUniqueName": "C:\\Users\\314ga\\Desktop\\SEP6\\SEP6-UnitedAirlanes\\FlightFunctionApp\\WeatherFunctionApp.csproj",
+      "projectName": "WeatherFunctionApp",
+      "projectPath": "C:\\Users\\314ga\\Desktop\\SEP6\\SEP6-UnitedAirlanes\\FlightFunctionApp\\WeatherFunctionApp.csproj",
       "packagesPath": "C:\\Users\\314ga\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\314ga\\Desktop\\SEP6\\SEP6-UnitedAirlanes\\FlightFunctionApp\\obj\\",
       "projectStyle": "PackageReference",
@@ -6930,6 +6956,10 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
+          "Microsoft.Azure.WebJobs.Extensions.Storage": {
+            "target": "Package",
+            "version": "[3.0.10, )"
+          },
           "Microsoft.NET.Sdk.Functions": {
             "target": "Package",
             "version": "[3.0.11, )"

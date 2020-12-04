@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-<<<<<<< Updated upstream:UAFlights/UAFlights.sln
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UAFlights", "UAFlights\UAFlights.csproj", "{B866D8F5-F6B3-4646-9FAD-8368E2C16472}"
-=======
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightFunctionApp", "FlightFunctionApp\FlightFunctionApp.csproj", "{97EB7B69-1A28-4371-A170-930007AE125B}"
->>>>>>> Stashed changes:FlightsPerMonth.sln
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherFunctionApp", "FlightFunctionApp\WeatherFunctionApp.csproj", "{97EB7B69-1A28-4371-A170-930007AE125B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

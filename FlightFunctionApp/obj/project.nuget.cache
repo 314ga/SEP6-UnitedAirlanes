@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uUwURyqYt9zw/XsksoJ2qOPXrJQxTGbpSja5xF7lmyqXJ0NUODFgcYaVw3TmQSclSwptIkT+1dgsba95pBZfXQ==",
+  "dgSpecHash": "nVv1n4EqwAKX4wwQ4Lb/wZN4wSushL/vpYOhjzBZLb5czPwcG3DGBTxxMbCRFbXu/21BMsKZMuAV0i0sb+lFMw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\314ga\\Desktop\\SEP6\\SEP6-UnitedAirlanes\\FlightFunctionApp\\FlightFunctionApp.csproj",
+  "projectFilePath": "C:\\Users\\314ga\\Desktop\\SEP6\\SEP6-UnitedAirlanes\\FlightFunctionApp\\WeatherFunctionApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\314ga\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.4\\microsoft.aspnet.webapi.client.5.2.4.nupkg.sha512",
     "C:\\Users\\314ga\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.1.0\\microsoft.aspnetcore.authentication.abstractions.2.1.0.nupkg.sha512",
@@ -28,6 +28,7 @@
     "C:\\Users\\314ga\\.nuget\\packages\\microsoft.azure.webjobs.core\\3.0.23\\microsoft.azure.webjobs.core.3.0.23.nupkg.sha512",
     "C:\\Users\\314ga\\.nuget\\packages\\microsoft.azure.webjobs.extensions\\3.0.6\\microsoft.azure.webjobs.extensions.3.0.6.nupkg.sha512",
     "C:\\Users\\314ga\\.nuget\\packages\\microsoft.azure.webjobs.extensions.http\\3.0.2\\microsoft.azure.webjobs.extensions.http.3.0.2.nupkg.sha512",
+    "C:\\Users\\314ga\\.nuget\\packages\\microsoft.azure.webjobs.extensions.storage\\3.0.10\\microsoft.azure.webjobs.extensions.storage.3.0.10.nupkg.sha512",
     "C:\\Users\\314ga\\.nuget\\packages\\microsoft.azure.webjobs.host.storage\\3.0.14\\microsoft.azure.webjobs.host.storage.3.0.14.nupkg.sha512",
     "C:\\Users\\314ga\\.nuget\\packages\\microsoft.azure.webjobs.script.extensionsmetadatagenerator\\1.2.0\\microsoft.azure.webjobs.script.extensionsmetadatagenerator.1.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

@@ -10,26 +10,26 @@ using Newtonsoft.Json;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace FlightFunctionApp
+namespace WeatherFunctionApp
 {
-    public static class FlightsPerMonth
+    public static class WeatherApi
     {
-        [FunctionName("FlightsPerMonth")]
+        [FunctionName("WeatherApi")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string name = req.Query["name"];
+            string userRequest = req.Query["name"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            userRequest = userRequest ?? data?.name;
 
-            string responseMessage = string.IsNullOrEmpty(name)
+            string responseMessage = string.IsNullOrEmpty(userRequest)
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+                : $"Hello, {userRequest}. This is weather";
             // Get the connection string from app settings and use it to create a connection.
             var str = Environment.GetEnvironmentVariable("sqldb_connection");
             using (SqlConnection conn = new SqlConnection(str))

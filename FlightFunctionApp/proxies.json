@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json.schemastore.org/proxies",
+  "proxies": {
+    "SEP6-UA-Proxy": {
+      "matchCondition": {
+        "route": "weather"
+      },
+      "backendUri": "https://sep6-ua-weather.azurewebsites.net/api/FlightsPerMonth?code=1C1qoyymZ1nW9dU8Luy9igOXlOpmUAEEjKL671IPRlC9kEl5KkjWww=="
+    },
+    "Weather": {
+      "matchCondition": {
+        "route": "flights"
+      },
+      "backendUri": "https://sep6ua-functionapp.azurewebsites.net/api/HttpTrigger1?code=4xqo7cEhIeoMgP0tCd5SxWOYr31TNtEsVo05tfOdd1gPwbzyafIA3w=="
+    }
+
+  }
+}
