@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherFunctionApp", "FlightFunctionApp\WeatherFunctionApp.csproj", "{97EB7B69-1A28-4371-A170-930007AE125B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightFunctionApp", "Flights_\FlightFunctionApp\FlightFunctionApp.csproj", "{9DD3BC02-10EC-4BEE-8EDC-B8B26A7AABA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightFunctionApp", "Flights_\FlightFunctionApp\FlightFunctionApp.csproj", "{9DD3BC02-10EC-4BEE-8EDC-B8B26A7AABA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManufacturerFunctionApp", "ManufacturerFunctionApp\ManufacturerFunctionApp.csproj", "{8CEBEB07-8DD4-4904-B1F8-D596BD88F48B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9DD3BC02-10EC-4BEE-8EDC-B8B26A7AABA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD3BC02-10EC-4BEE-8EDC-B8B26A7AABA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD3BC02-10EC-4BEE-8EDC-B8B26A7AABA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CEBEB07-8DD4-4904-B1F8-D596BD88F48B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CEBEB07-8DD4-4904-B1F8-D596BD88F48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CEBEB07-8DD4-4904-B1F8-D596BD88F48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CEBEB07-8DD4-4904-B1F8-D596BD88F48B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
