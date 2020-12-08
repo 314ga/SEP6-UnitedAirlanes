@@ -38,27 +38,27 @@ namespace ManufacturerFunctionApp
                     {
                         case "a":
                             {
-                                text = "";
+                                text = "aaaaaa";
                                 break;
                             }
                         case "b":
                             {
-                                text = "";
+                                text = "bbbbbb";
                                 break;
                             }
                         case "c":
                             {
-                                text = "";
+                                text = "ccccccc";
                                 break;
                             }
                         case "d":
                             {
-                                text = "";
+                                text = "dddddddd";
                                 break;
                             }
                         case "e":
                             {
-                                text = "";
+                                text = "eeeee";
                                 break;
                             }
                         default:
