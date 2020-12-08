@@ -36,29 +36,19 @@ namespace ManufacturerFunctionApp
                     conn.Open();
                     switch (userRequest)
                     {
-                        case "a":
+                        case "manufacturers":
                             {
-                                text = "aaaaaa";
+                                text = "SELECT * FROM planes where origin='JFK' FOR JSON PATH";
                                 break;
                             }
-                        case "b":
+                        case "number-of-flights":
                             {
-                                text = "bbbbbb";
+                                text = "SELECT * FROM planes where origin='JFK' FOR JSON PATH";
                                 break;
                             }
-                        case "c":
+                        case "airbusmodel-planes":
                             {
-                                text = "ccccccc";
-                                break;
-                            }
-                        case "d":
-                            {
-                                text = "dddddddd";
-                                break;
-                            }
-                        case "e":
-                            {
-                                text = "eeeee";
+                                text = "SELECT * FROM planes where origin='JFK' FOR JSON PATH";
                                 break;
                             }
                         default:
