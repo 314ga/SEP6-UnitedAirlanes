@@ -11,7 +11,13 @@
       "matchCondition": {
         "route": "flights"
       },
-      "backendUri": "https://sep6ua-functionapp.azurewebsites.net/api/HttpTrigger1?code=4xqo7cEhIeoMgP0tCd5SxWOYr31TNtEsVo05tfOdd1gPwbzyafIA3w=="
+      "backendUri": "https://flightfunctionplan.azurewebsites.net/api/FlightsAPI?code=yDn2pitXFmcoD4q6Lg5j6dYp3I3U6KO2iOGtTbv6koOqYiiangAWHA=="
+    },
+    "Manufacturer": {
+      "matchCondition": {
+        "route": "manufacturer"
+      },
+      "backendUri": "https://manufacturerfunctionapp.azurewebsites.net/api/ManufacturerApi?code=rvIMQw2aBUrI/XGl6BRO7to3D83SzkXaWuLYUxJFjbCwRaEKabtEHg=="
     }
 
   }
