@@ -97,7 +97,7 @@ namespace WeatherFunctionApp
                         }
                         
                     }
-                    if(text != "error" || text == "")
+                    if(text != "error" || text != "")
                     {
                         using (SqlCommand cmd = new SqlCommand(text, conn))
                         {
