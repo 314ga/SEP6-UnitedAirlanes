@@ -17,7 +17,7 @@
       "matchCondition": {
         "route": "manufacturer"
       },
-      "backendUri": "https://manufacturerfunctionapp.azurewebsites.net/api/ManufacturerApi?code=rvIMQw2aBUrI/XGl6BRO7to3D83SzkXaWuLYUxJFjbCwRaEKabtEHg=="
+      "backendUri": "https://manufacturerfunctionapp.azurewebsites.net/api/ManufacturerAPI?code=q6ZBWVhUl7YYmX5Uv08kOX52D2c088hX3/zCX1cOl718DRcr2Z0DeQ=="
     }
 
   }
