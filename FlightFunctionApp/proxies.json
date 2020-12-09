@@ -12,6 +12,12 @@
         "route": "flights"
       },
       "backendUri": "https://flightfunctionplan.azurewebsites.net/api/FlightsAPI?code=yDn2pitXFmcoD4q6Lg5j6dYp3I3U6KO2iOGtTbv6koOqYiiangAWHA=="
+    },
+    "Manufacturer": {
+      "matchCondition": {
+        "route": "manufacturer"
+      },
+      "backendUri": "https://manufacturerfunctionapp.azurewebsites.net/api/ManufacturerAPI?code=q6ZBWVhUl7YYmX5Uv08kOX52D2c088hX3/zCX1cOl718DRcr2Z0DeQ=="
     }
 
   }

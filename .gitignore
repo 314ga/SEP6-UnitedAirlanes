@@ -270,3 +270,4 @@ __pycache__/
 UAFlights/.vs/UAFlights/v16/.suo
 FlightFunctionApp/local.settings.json
 .vs/FlightsPerMonth/v16/.suo
+ManufacturerFunctionApp/local.settings.json

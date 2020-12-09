@@ -19,7 +19,7 @@ namespace WeatherFunctionApp
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            log.LogInformation("API for United Airlines");
 
             string userRequest = req.Query["requestBody"];
             string responseMessage = "";
@@ -38,56 +38,63 @@ namespace WeatherFunctionApp
                     {
                         case "wo-origins":
                         {
-                            text =  "SELECT COUNT(*) AS weather_obs_origin " +
-                                    "FROM dbo.weather WHERE origin = 'JFK' "+
+                            text =  "SELECT origin, COUNT(*) AS weather_obs_origin " +
+                                    "FROM dbo.weather WHERE origin = 'JFK' GROUP BY origin " +
                                     "UNION ALL "+
-                                    "SELECT COUNT(*) AS weather_obs_origin2 "+
-                                    "FROM dbo.weather WHERE origin = 'EWR' "+
+                                    "SELECT origin, COUNT(*) AS weather_obs_origin2 " +
+                                    "FROM dbo.weather WHERE origin = 'EWR' GROUP BY origin " +
                                     "UNION ALL "+
-                                    "SELECT COUNT(*) AS weather_obs_origin3 "+
-                                    "FROM dbo.weather WHERE origin = 'LGA' FOR JSON PATH;";
+                                    "SELECT origin, COUNT(*) AS weather_obs_origin3 " +
+                                    "FROM dbo.weather WHERE origin = 'LGA' GROUP BY origin FOR JSON PATH;";
                             break;
                         }
                         case "temp-attributes":
                         {
-                            text = "SELECT origin,CAST(temp AS float) AS temp FROM dbo.weather "+
-                                    "WHERE origin = 'JFK' AND ISNUMERIC(temp) = 1 UNION ALL "+
-                                   "SELECT origin, CAST(temp AS float) AS temp FROM dbo.weather "+
-                                   "WHERE origin = 'EWR'AND ISNUMERIC(temp) = 1 UNION ALL "+
-                                   "SELECT origin, CAST(temp AS float) AS temp FROM dbo.weather " +
-                                   "WHERE origin = 'LGA' AND ISNUMERIC(temp) = 1 FOR JSON PATH;";
+                                text = "Declare @jfk as varchar(MAX)= (SELECT CONCAT(year,'-' , month , '-' , day, 'T',hour , ':00:00Z') AS x, (CAST(temp AS float)-32)/1.8 AS y, " +
+                                    "CAST(2 AS int) AS r  FROM dbo.weather WHERE origin = 'JFK' AND ISNUMERIC(temp) = 1  FOR JSON PATH) " +
+                                    "Declare @ewr as varchar(MAX) = (SELECT CONCAT(year,'-' , month , '-' , day, 'T',hour , ':00:00Z') AS x,  (CAST(temp AS float)-32)/1.8 AS y, " +
+                                    "CAST(2 AS int) AS r  FROM dbo.weather WHERE origin = 'EWR' AND ISNUMERIC(temp) = 1  FOR JSON PATH) " +
+                                    "Declare @lga as varchar(MAX) = (SELECT CONCAT(year,'-' , month , '-' , day, 'T',hour , ':00:00Z') AS x, (CAST(temp AS float)-32)/1.8 AS y, CAST(2 AS int) " +
+                                    "AS r  FROM dbo.weather WHERE origin = 'LGA' AND ISNUMERIC(temp) = 1  FOR JSON PATH) " +
+                                    "Select  CONCAT('{\"JFK\":[',substring(@jfk,2,(LEN(@jfk)-2)), '],\"EWR\":[',substring" +
+                                    "(@ewr,2,(LEN(@ewr)-2)), '],\"LGA\":[',substring(@lga,2,(LEN(@lga)-2)), ']}')";
+
+
+
                             break;
                         }
-                        case "temp-jfk":
+                        case "dewp-attributes":
                         {
-                            text = "SELECT origin,CAST(temp AS float) AS temp " +
-                                    "FROM dbo.weather WHERE origin = 'JFK' AND ISNUMERIC(temp) = 1 FOR JSON PATH;";
-                            break;
-                        }
-                        case "avgtemp-jfk":
-                        {
-                                text = "SELECT origin,datepart(day,time_hour) AS div_day,datepart(month,time_hour) " +
-                                "AS div_month,datepart(year,time_hour) AS div_year, AVG(CAST(temp AS float)) AS temp  FROM dbo.weather " +
-                                "WHERE ISNUMERIC(temp) = 1 AND temp IS NOT NULL AND origin = 'JFK' " +
-                                "GROUP BY datepart(day, time_hour),datepart(month, time_hour),datepart(year, time_hour), " +
-                                "origin ORDER BY origin,div_year,div_month,div_day ASC FOR JSON PATH;";
+                            text = "Declare @jfk as varchar(MAX)= (SELECT CONCAT(year,'-' , month , '-' , day, 'T',hour , ':00:00Z') AS x, (CAST(dewp AS float)-32)/1.8 AS y, " +
+                                "CAST(2 AS int) AS r  FROM dbo.weather WHERE origin = 'JFK' AND ISNUMERIC(dewp) = 1  FOR JSON PATH) " +
+                                "Declare @ewr as varchar(MAX) = (SELECT CONCAT(year,'-' , month , '-' , day, 'T',hour , ':00:00Z') AS x,  (CAST(dewp AS float)-32)/1.8 AS y, " +
+                                "CAST(2 AS int) AS r  FROM dbo.weather WHERE origin = 'EWR' AND ISNUMERIC(dewp) = 1  FOR JSON PATH) " +
+                                "Declare @lga as varchar(MAX) = (SELECT CONCAT(year,'-' , month , '-' , day, 'T',hour , ':00:00Z') AS x, (CAST(dewp AS float)-32)/1.8 AS y, CAST(2 AS int) " +
+                                "AS r  FROM dbo.weather WHERE origin = 'LGA' AND ISNUMERIC(dewp) = 1  FOR JSON PATH) " +
+                                "Select  CONCAT('{\"JFK\":[',substring(@jfk,2,(LEN(@jfk)-2)), '],\"EWR\":[',substring" +
+                                "(@ewr,2,(LEN(@ewr)-2)), '],\"LGA\":[',substring(@lga,2,(LEN(@lga)-2)), ']}')";
+
+
+
                             break;
                         }
                         case "avgtemp-origin":
                         {
-                            text = "SELECT origin,datepart(day,time_hour) AS div_day,datepart(month,time_hour) " +
-                                "AS div_month,datepart(year,time_hour) AS div_year, AVG(CAST(temp AS float)) AS temp  FROM dbo.weather " +
-                                "WHERE ISNUMERIC(temp) = 1 AND temp IS NOT NULL AND origin = 'JFK' " +
-                                "GROUP BY datepart(day, time_hour),datepart(month, time_hour),datepart(year, time_hour), origin " +
-                                "UNION ALL SELECT origin,datepart(day, time_hour) AS div_day, datepart(month, time_hour) AS div_month, " +
-                                "datepart(year, time_hour) AS div_year, AVG(CAST(temp AS float)) AS temp  FROM dbo.weather " +
-                                "WHERE ISNUMERIC(temp) = 1 AND temp IS NOT NULL AND origin = 'EWR' " +
-                                "GROUP BY datepart(day, time_hour),datepart(month, time_hour),datepart(year, time_hour), origin UNION ALL " +
-                                "SELECT origin,datepart(day, time_hour) AS div_day, datepart(month, time_hour) AS div_month, " +
-                                "datepart(year, time_hour) AS div_year, AVG(CAST(temp AS float)) AS temp  FROM dbo.weather " +
-                                "WHERE ISNUMERIC(temp) = 1 AND temp IS NOT NULL AND origin = 'LGA' " +
-                                "GROUP BY datepart(day, time_hour),datepart(month, time_hour),datepart(year, time_hour), origin " +
-                                "ORDER BY origin, div_year, div_month, div_day ASC FOR JSON PATH; ";
+                            text = "Declare @jfk as varchar(MAX)= ( SELECT * FROM( SELECT CONCAT(datepart(day, time_hour), " +
+                                    "'-' , datepart(month, time_hour),'-', datepart(year, time_hour)) AS x, AVG((CAST(dewp AS float)-32)/1.8) " +
+                                    "AS y, CAST(4 AS int) AS r  FROM dbo.weather WHERE origin = 'JFK' AND ISNUMERIC(temp) = 1 " +
+                                    "GROUP BY datepart(day, time_hour),datepart(month, time_hour),datepart(year, time_hour), origin) " +
+                                    "AS t FOR JSON PATH) " +
+                                    "Declare @ewr as varchar(MAX) = (SELECT * FROM( SELECT CONCAT(datepart(day, time_hour), '-', " +
+                                    "datepart(month, time_hour), '-', datepart(year, time_hour)) AS x, AVG((CAST(dewp AS float)-32)/1.8) AS y, " +
+                                    "CAST(4 AS int) AS r  FROM dbo.weather WHERE origin = 'EWR' AND ISNUMERIC(temp) = 1 GROUP BY datepart" +
+                                    "(day, time_hour), datepart(month, time_hour), datepart(year, time_hour), origin) AS t FOR JSON PATH) " +
+                                    "Declare @lga as varchar(MAX) = (SELECT * FROM( SELECT CONCAT(datepart(day, time_hour), '-', datepart" +
+                                    "(month, time_hour), '-', datepart(year, time_hour)) AS x, AVG((CAST(dewp AS float)-32)/1.8) AS y, CAST(4 AS int) " +
+                                    "AS r  FROM dbo.weather WHERE origin = 'LGA' AND ISNUMERIC(temp) = 1 GROUP BY datepart(day, time_hour), " +
+                                    "datepart(month, time_hour), datepart(year, time_hour), origin) AS t FOR JSON PATH) Select CONCAT('{\"JFK\"" +
+                                    ":[',substring(@jfk, 2, (LEN(@jfk) - 2)), '],\"EWR\":[',substring(@ewr, 2, (LEN(@ewr) - 2)), '],\"LGA\":['," +
+                                    "substring(@lga, 2, (LEN(@lga) - 2)), ']}')";
                             break;
                         }
                         default:
@@ -106,7 +113,7 @@ namespace WeatherFunctionApp
                             while (reader.Read())
                             {
                                 IDataRecord result = (IDataRecord)reader;
-                                responseMessage += String.Format("{0},", result[0]);
+                                responseMessage += String.Format("{0}", result[0]);
                             }
                             // Call Close when done reading.
                             reader.Close();
