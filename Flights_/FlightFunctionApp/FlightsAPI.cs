@@ -97,29 +97,6 @@ namespace FlightFunctionApp
                         case "avg-airtime": dbQuery = "SELECT origin, AVG(airs) AS average_air_time FROM (SELECT origin,CAST(air_time AS decimal(18,2)) AS airs FROM dbo.flights " +
                                 "WHERE ISNUMERIC(air_time) = 1 AND air_time IS NOT NULL AND(origin = 'JFK' OR origin = 'EWR' OR origin = 'LGA')) AS resultTable GROUP BY origin FOR JSON PATH" ;
                             break;
-                        /**MANUFACTURER WITH MORE TAHN200 planes*/
-                        case "planes-per-manufacturer":
-                            dbQuery = "SELECT * FROM(SELECT manufacturer, count(manufacturer) AS plane_count FROM dbo.planes GROUP by manufacturer) " +
-                                "AS result_table WHERE plane_count> 200 FOR JSON PATH";
-                            break;
-                        /*Number of planes of each airbus model*/
-                        case "airbus-per-manufaturer": dbQuery = "SELECT manufacturer AS model, count(*) as airbus_model FROM dbo.planes " +
-                                 "WHERE  manufacturer = 'AIRBUS' GROUP BY manufacturer UNION ALL SELECT manufacturer AS model, " +
-                                 "count(*) as airbus_model FROM dbo.planes WHERE  manufacturer = 'AIRBUS INDUSTRIE' GROUP BY manufacturer FOR JSON PATH; ";
-                            break;
-                        /*GET manufacturer with more than 200 planes and get manufacturer from specific row**/
-                        case "flights-per-manufacturer": dbQuery = "DECLARE @Looper INT = 1, @Manufacturers INT, @ManufacturerName NVARCHAR(100), @ManufacturerNames NVARCHAR(150), " +
-                                "@ManufacturerFlights NVARCHAR(100) SELECT @Manufacturers = count(*) FROM(SELECT * FROM(SELECT manufacturer, count(manufacturer) AS plane_count " +
-                                "FROM dbo.planes GROUP by manufacturer) AS result_table WHERE plane_count > 200) as manufact; " +
-                                "WHILE(@Looper <= @Manufacturers) BEGIN WITH cte_customers AS(SELECT ROW_NUMBER() OVER(ORDER BY manufacturer ) row_num, manufacturer " +
-                                "FROM(SELECT * FROM(SELECT manufacturer, count(manufacturer) AS plane_count FROM dbo.planes GROUP by manufacturer) AS result_table WHERE plane_count > 200) as manufact) " +
-                                "SELECT @ManufacturerName = manufacturer FROM cte_customers WHERE row_num = @Looper;" +
-                                "SELECT @ManufacturerFlights = count(*) FROM(SELECT flights.id, planes.manufacturer FROM dbo.flights " +
-                                "INNER JOIN planes ON flights.tailnum = planes.tailnum AND planes.manufacturer = @ManufacturerName) as s; " +
-                                "SET @Looper = @Looper + 1 " +
-                                "SELECT @ManufacturerNames = CONCAT(@ManufacturerNames, '_', @ManufacturerName, '-', @ManufacturerFlights) " +
-                                "END SELECT @ManufacturerNames AS company FOR JSON PATH; ";
-                            break;
                         case "delays": dbQuery = "SELECT origin,AVG(ari_delay) AS average_ari_delay, AVG(dep_delay) AS average_dep_delay  FROM (SELECT origin, CAST(arr_delay AS decimal) " +
                                 "AS ari_delay, CAST(dep_delay AS float) AS dep_delay FROM dbo.flights " +
                                 "WHERE ISNUMERIC(dep_delay) = 1 AND ISNUMERIC(arr_delay) = 1 AND dep_delay IS NOT NULL AND arr_delay IS NOT NULL AND(origin = 'JFK' OR origin = 'EWR' OR origin = 'LGA')) AS resultTable " +
